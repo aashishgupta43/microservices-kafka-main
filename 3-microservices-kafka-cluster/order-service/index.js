@@ -20,7 +20,7 @@ const run = async () => {
     await consumer.run({
       eachMessage: async ({ topic, partition, message }) => {
         const value = message.value.toString();
-        const { userId, cart } = JSON.parse(value);
+        const { checkoutId, userId, cart } = JSON.parse(value);
 
         // TODO: Create order on DB
         const dummyOrderId = "123456789";
@@ -29,7 +29,13 @@ const run = async () => {
         await producer.send({
           topic: "order-successful",
           messages: [
-            { value: JSON.stringify({ userId, orderId: dummyOrderId }) },
+            {
+              value: JSON.stringify({
+                checkoutId,
+                userId,
+                orderId: dummyOrderId,
+              }),
+            },
           ],
         });
       },

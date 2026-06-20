@@ -20,7 +20,7 @@ const run = async () => {
     await consumer.run({
       eachMessage: async ({ topic, partition, message }) => {
         const value = message.value.toString();
-        const { userId, orderId } = JSON.parse(value);
+        const { checkoutId, userId, orderId } = JSON.parse(value);
 
         // TODO: Send email to the user
         const dummyEmailId = "091584203985";
@@ -29,7 +29,13 @@ const run = async () => {
         await producer.send({
           topic: "email-successful",
           messages: [
-            { value: JSON.stringify({ userId, emailId: dummyEmailId }) },
+            {
+              value: JSON.stringify({
+                checkoutId,
+                userId,
+                emailId: dummyEmailId,
+              }),
+            },
           ],
         });
       },
