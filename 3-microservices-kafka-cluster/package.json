@@ -1,0 +1,10 @@
+{
+  "name": "microservices-kafka-cluster",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node scripts/start-all.mjs",
+    "dev": "node scripts/start-all.mjs",
+    "kafka:stop": "docker compose -f kafka/docker-compose.yml down"
+  }
+}
