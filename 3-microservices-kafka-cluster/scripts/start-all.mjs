@@ -106,6 +106,11 @@ try {
   await Promise.all([9094, 9095, 9096].map((port) => waitForPort(port)));
   await new Promise((resolve) => setTimeout(resolve, 4_000));
 
+  console.log("Creating required Kafka topics...");
+  await run("node", ["admin.js"], {
+    cwd: path.join(rootDir, "kafka"),
+  });
+
   startService("order-service", "order-service", ["node", "index.js"]);
   startService("payment-service", "payment-service", ["node", "index.js"]);
   startService("email-service", "email-service", ["node", "index.js"]);

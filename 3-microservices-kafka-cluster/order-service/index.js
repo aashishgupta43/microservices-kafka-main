@@ -3,6 +3,10 @@ import { Kafka } from "kafkajs";
 const kafka = new Kafka({
   clientId: "order-service",
   brokers: ["localhost:9094", "localhost:9095", "localhost:9096"],
+  retry: {
+    initialRetryTime: 500,
+    retries: 20,
+  },
 });
 
 const producer = kafka.producer();
